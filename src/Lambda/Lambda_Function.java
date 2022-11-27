@@ -7,7 +7,9 @@ package Lambda;
 * */
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 public class Lambda_Function {
@@ -28,6 +30,29 @@ public class Lambda_Function {
         List<Integer> integerList = Arrays.asList(1,2,3);
         integerList.stream().map(Function.identity()).forEach(System.out::println);
         
+        Function<String, Integer> strCount = x -> x.length();
+        Integer res = strCount.apply("testTest");
+        System.out.println(res);
+
+        System.out.println("-------------------------");
+        Case4.test();
+        
     }
     
+    static class Case4{
+        static void test() {
+            List<String> list = Arrays.asList("node", "c++", "java", "javascript");
+            Map<String, Integer> map = listToMap(list, String::length);
+            System.out.println(map);
+        }
+        
+        static <T, R> Map listToMap(List<T> list, Function<T, R> func) {
+            Map<T, R> result = new HashMap<>();
+            for (T t : list) {
+                result.put(t, func.apply(t));
+            }
+            return result;
+        }
+    }
+
 }
